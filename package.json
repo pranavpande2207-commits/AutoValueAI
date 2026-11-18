@@ -1,0 +1,26 @@
+{
+  "name": "autovalue-ai",
+  "version": "1.0.0",
+  "description": "The Used Car Price Estimation System for E-Commerce",
+  "main": "index.html",
+  "scripts": {
+    "dev": "echo 'Open index.html in your browser or use a local server'",
+    "build": "echo 'No build step required for static HTML'",
+    "start": "echo 'Deploy to Vercel or use a local server'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranavpande2207-commits/AutoValueAI.git"
+  },
+  "keywords": [
+    "car-price-estimation",
+    "ai",
+    "machine-learning",
+    "ecommerce",
+    "used-cars"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
