@@ -89,7 +89,37 @@ input:focus,select:focus{outline:2px solid var(--blue)}
 
 <footer><div class="wrap">AutoValue AI · Used Car Price Estimation System for E-Commerce · MIT School of Computing prototype</div></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// Supabase database connection (no authentication or UI changes yet)
+const SUPABASE_URL = "https://rwateejlkqngdcrqzigi.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_wCQEBvJK-27-J4XhaIWqLQ_G4_vy2nL";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+// Read-only connectivity check against the existing table.
+// RLS still applies; this does not insert, update, or delete any records.
+(async function testDatabaseConnection() {
+  try {
+    const { error } = await supabaseClient
+      .from("car_estimations")
+      .select("id")
+      .limit(1);
+
+    if (error) {
+      console.error("Supabase client initialized, but the table check was denied or failed:", error.message);
+      return;
+    }
+
+    console.log("AutoValue AI is connected to the Supabase car_estimations table.");
+  } catch (err) {
+    console.error("Supabase connection check failed:", err);
+  }
+})();
+
 var BASE={"Maruti Suzuki":650000,"Hyundai":800000,"Honda":950000,"Tata":750000,"Mahindra":1100000,"Toyota":1300000,"Kia":1100000,"Ford":800000,"Volkswagen":900000,"Skoda":1000000,"Renault":600000,"Nissan":650000,"BMW":4500000,"Mercedes-Benz":5000000,"Audi":4500000,"Other":800000};
 var b=document.getElementById('brand');Object.keys(BASE).forEach(function(k){b.add(new Option(k))});
 var $=function(i){return document.getElementById(i)};
