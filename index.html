@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AutoValue AI – Used Car Price Estimation</title>
+<meta name="description" content="Know your car's true market value with AI. Estimate used car prices in India.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#f6f8fc;--card:#fff;--ink:#0b1b3a;--mute:#5b6b88;--blue:#2563eb;--navy:#0b1b3a;--line:#e3e8f2;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1228;--card:#101c3a;--ink:#eaf0ff;--mute:#9db0d6;--line:#22305a;--navy:#060d20;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1228;--card:#101c3a;--ink:#eaf0ff;--mute:#9db0d6;--line:#22305a;--navy:#060d20;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--navy);z-index:5}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo{color:#fff;font-weight:800;font-size:20px}.logo b{color:#60a5fa}
+nav a{color:#c7d6f5;text-decoration:none;margin-left:20px;font-size:14px}
+.hero{background:linear-gradient(135deg,var(--navy),#16336e 70%,#2563eb);color:#fff;padding:72px 0 80px}
+.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.1;margin:0 0 16px;max-width:680px;font-weight:800}
+.hero p{max-width:560px;color:#cfdcf7;font-size:18px}
+.btn{display:inline-block;border:0;border-radius:12px;padding:13px 22px;font:600 15px Inter,sans-serif;cursor:pointer;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}.b1{background:#fff;color:var(--navy)}.b2{background:transparent;color:#fff;border:1px solid #6f8fd6;margin-left:8px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:40px}
+.stats div{background:rgba(255,255,255,.08);border-radius:14px;padding:14px}.stats b{font-size:22px;display:block}.stats span{font-size:13px;color:#b9c9ee}
+section{padding:56px 0}h2{font-size:30px;margin:0 0 6px}.sub{color:var(--mute);margin:0 0 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}@media(max-width:820px){.grid{grid-template-columns:1fr}.b2{margin:10px 0 0}}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:520px){.f{grid-template-columns:1fr}}
+label{font-size:13px;font-weight:600;color:var(--mute);display:block;margin-bottom:5px}
+input,select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:15px Inter,sans-serif}
+input:focus,select:focus{outline:2px solid var(--blue)}
+.full{grid-column:1/-1}.err{color:var(--bad);font-size:12px;min-height:14px}
+.demo{display:inline-block;background:#fef3c7;color:#92400e;border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600;margin-bottom:12px}
+.price{font-size:44px;font-weight:800;color:var(--blue);margin:4px 0}
+.verdict{display:inline-block;padding:6px 14px;border-radius:99px;font-weight:600;font-size:14px;color:#fff;margin:8px 0}
+.bar{position:relative;height:14px;background:var(--line);border-radius:99px;margin:26px 0 8px}
+.rng{position:absolute;top:0;bottom:0;background:#93b4fb;border-radius:99px}
+.pin{position:absolute;top:-6px;width:4px;height:26px;border-radius:2px}
+.leg{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+.spin{width:34px;height:34px;border:4px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:s .8s linear infinite;margin:40px auto}@keyframes s{to{transform:rotate(360deg)}}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.n{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:800;margin-bottom:10px}
+.road li{margin:6px 0}footer{background:var(--navy);color:#9db0d6;padding:28px 0;font-size:13px}
+</style></head><body>
+<nav><div class="wrap"><div class="logo">AutoValue <b>AI</b></div><div><a href="#estimate">Estimate</a><a href="#how">How it works</a><a href="#roadmap">Roadmap</a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+<h1>Know Your Car’s True Market Value with AI.</h1>
+<p>Enter your car’s details and get a fair price estimate with a min–max range, so buyers don’t overpay and sellers price it right.</p>
+<p><a class="btn b1" href="#estimate">Get Price Estimate</a><a class="btn b2" href="#roadmap">Explore Used Cars (coming soon)</a></p>
+<div class="stats"><div><b>10</b><span>Input features</span></div><div><b>₹ INR</b><span>Price range output</span></div><div><b>3-way</b><span>Under / fair / over check</span></div><div><b>RF</b><span>Random Forest (planned)</span></div></div>
+</div></header>
+
+<section id="estimate"><div class="wrap">
+<h2>AI Car Price Estimation</h2><p class="sub">Fill in the details below.</p>
+<div class="grid">
+<form class="card" id="frm" novalidate><div class="f">
+<div><label>Brand</label><select id="brand"></select><div class="err" id="e_brand"></div></div>
+<div><label>Model</label><input id="model" placeholder="e.g. Swift"><div class="err" id="e_model"></div></div>
+<div><label>Manufacturing year</label><input id="year" type="number" placeholder="2019"><div class="err" id="e_year"></div></div>
+<div><label>Kilometers driven</label><input id="km" type="number" placeholder="45000"><div class="err" id="e_km"></div></div>
+<div><label>Fuel type</label><select id="fuel"><option>Petrol</option><option>Diesel</option><option>CNG</option><option>Electric</option><option>Hybrid</option></select></div>
+<div><label>Transmission</label><select id="trans"><option>Manual</option><option>Automatic</option></select></div>
+<div><label>Engine capacity (cc)</label><input id="cc" type="number" placeholder="1197"><div class="err" id="e_cc"></div></div>
+<div><label>Ownership</label><select id="own"><option>First Owner</option><option>Second Owner</option><option>Third Owner</option></select></div>
+<div><label>Location</label><select id="loc"><option>Pune</option><option>Mumbai</option><option>Delhi</option><option>Bengaluru</option><option>Hyderabad</option><option>Chennai</option><option>Other</option></select></div>
+<div><label>Condition</label><select id="cond"><option>Excellent</option><option selected>Good</option><option>Fair</option><option>Poor</option></select></div>
+<div class="full"><label>Your asking price in ₹ (optional)</label><input id="ask" type="number" placeholder="450000"></div>
+<div class="full"><button class="btn b1" style="background:var(--blue);color:#fff;width:100%">Estimate Price</button></div>
+</div></form>
+<div class="card" id="out"><p style="color:var(--mute)">Your estimate will appear here.</p></div>
+</div></div></section>
+
+<section id="how" style="background:var(--card)"><div class="wrap">
+<h2>How It Works</h2><p class="sub">From car details to a fair price in three steps.</p>
+<div class="steps">
+<div><div class="n">1</div><b>Enter details</b><p style="color:var(--mute)">Brand, model, year, km, fuel, transmission, owner and condition.</p></div>
+<div><div class="n">2</div><b>Model predicts</b><p style="color:var(--mute)">A trained regression model (FastAPI backend) estimates the fair value.</p></div>
+<div><div class="n">3</div><b>Compare</b><p style="color:var(--mute)">See the price range and whether an asking price is under, fair or over.</p></div>
+</div></div></section>
+
+<section id="roadmap"><div class="wrap">
+<h2>Project Status</h2><p class="sub">This is Phase 1: UI and estimator front end.</p>
+<div class="card"><ul class="road">
+<li><b>Done:</b> homepage, estimator form with validation, loading state, result card, price comparison bar.</li>
+<li><b>Demo mode:</b> estimates currently use a transparent depreciation formula, not a trained ML model, and brand base prices are rough placeholders.</li>
+<li><b>Next:</b> Random Forest training pipeline, FastAPI <code>/predict</code> endpoint, then marketplace, auth, sell page and dashboards.</li>
+</ul></div></div></section>
+
+<footer><div class="wrap">AutoValue AI · Used Car Price Estimation System for E-Commerce · MIT School of Computing prototype</div></footer>
+
+<script>
+var BASE={"Maruti Suzuki":650000,"Hyundai":800000,"Honda":950000,"Tata":750000,"Mahindra":1100000,"Toyota":1300000,"Kia":1100000,"Ford":800000,"Volkswagen":900000,"Skoda":1000000,"Renault":600000,"Nissan":650000,"BMW":4500000,"Mercedes-Benz":5000000,"Audi":4500000,"Other":800000};
+var b=document.getElementById('brand');Object.keys(BASE).forEach(function(k){b.add(new Option(k))});
+var $=function(i){return document.getElementById(i)};
+var inr=function(n){return '₹'+(Math.round(n/1000)*1000).toLocaleString('en-IN')};
+function estimate(d){
+ var age=Math.max(0,new Date().getFullYear()-d.year);
+ var p=BASE[d.brand]*Math.pow(0.88,age);
+ var expKm=age*12000;p*=Math.max(.7,Math.min(1.12,1-(d.km-expKm)/400000));
+ p*={Petrol:1,Diesel:1.08,CNG:.95,Electric:1.1,Hybrid:1.08}[d.fuel];
+ p*=d.trans==='Automatic'?1.1:1;
+ p*={'First Owner':1,'Second Owner':.92,'Third Owner':.85}[d.own];
+ p*={Excellent:1.06,Good:1,Fair:.9,Poor:.78}[d.cond];
+ p*=Math.max(.85,Math.min(1.2,d.cc/1200));
+ return p;}
+$('frm').addEventListener('submit',function(ev){
+ ev.preventDefault();var ok=true,y=new Date().getFullYear();
+ function chk(id,bad,msg){$('e_'+id).textContent=bad?msg:'';if(bad)ok=false}
+ var d={brand:b.value,model:$('model').value.trim(),year:+$('year').value,km:+$('km').value,fuel:$('fuel').value,trans:$('trans').value,cc:+$('cc').value,own:$('own').value,cond:$('cond').value,ask:+$('ask').value};
+ chk('brand',!d.brand,'Select a brand');chk('model',d.model.length<2,'Enter the model');
+ chk('year',!(d.year>=1995&&d.year<=y),'Enter a year 1995–'+y);chk('km',!(d.km>=0&&$('km').value!==''),'Enter valid km');
+ chk('cc',!(d.cc>=600&&d.cc<=6000)&&d.fuel!=='Electric','Enter 600–6000 cc');
+ if(d.fuel==='Electric'&&!d.cc)d.cc=1200;
+ if(!ok)return;
+ $('out').innerHTML='<div class="spin"></div><p style="text-align:center;color:var(--mute)">Analysing vehicle data…</p>';
+ setTimeout(function(){
+  var p=estimate(d),lo=p*.92,hi=p*1.08,h='<span class="demo">DEMO MODE · formula estimate, not a trained ML model</span><div style="color:var(--mute)">'+d.brand+' '+d.model+' · '+d.year+'</div><div class="price">'+inr(p)+'</div><div style="color:var(--mute)">Range: '+inr(lo)+' – '+inr(hi)+'</div>';
+  var vals=[lo*.85,hi*1.15];
+  if(d.ask>0){var v=d.ask<lo?['Underpriced','#16a34a']:d.ask>hi?['Overpriced','#dc2626']:['Fairly priced','#d97706'];if(v[0]==='Fairly priced')v[1]='#2563eb';
+   h+='<br><span class="verdict" style="background:'+v[1]+'">'+v[0]+'</span>';vals.push(d.ask*.95,d.ask*1.05);}
+  var mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),pc=function(x){return((x-mn)/(mx-mn)*100).toFixed(1)};
+  h+='<div class="bar"><div class="rng" style="left:'+pc(lo)+'%;width:'+(pc(hi)-pc(lo))+'%"></div><div class="pin" style="left:'+pc(p)+'%;background:#2563eb" title="Estimate"></div>'+(d.ask>0?'<div class="pin" style="left:'+pc(d.ask)+'%;background:#dc2626" title="Asking"></div>':'')+'</div><div class="leg"><span>'+inr(mn)+'</span><span>Blue band = estimated range'+(d.ask>0?' · red = asking':'')+'</span><span>'+inr(mx)+'</span></div>';
+  $('out').innerHTML=h;},900);});
+</script></body></html>
